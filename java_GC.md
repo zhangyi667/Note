@@ -6,10 +6,10 @@ grammar_cjkRuby: true
 
 # Java GC
 ## 文章涉及到以下话题
-	* 那些内存需要回收？
-	* 什么时候回收？ 
-	* 如何回收？
-	* why is this so complex
+* 那些内存需要回收？
+* 什么时候回收？ 
+* 如何回收？
+* why is this so complex
 
 * One has to know the structure of JVM before figuring out GC
 	* Java堆内存一般可以分为新生代、老年代和永久代三个模块
@@ -25,12 +25,6 @@ grammar_cjkRuby: true
 	* 垃圾回收有两种类型，Minor GC 和 Full GC。
 
 * 垃圾回收机制的意义 -> 给对象分配内存 回收分配给对象的内存
-	* 文章涉及到以下话题
-		* 那些内存需要回收？(对象是否可以被回收的两种经典算法: 引用计数法 和 可达性分析算法)
-
-		* 什么时候回收？ （堆的新生代、老年代、永久代的垃圾回收时机，MinorGC 和 FullGC）
-		* 如何回收？(三种经典垃圾回收算法(标记清除算法、复制算法、标记整理算法)及分代收集算法 和 七种垃圾收集器)
-		* why is this so complex -> JVM由于要执行GC而停止了应用程序的执行，并且这种情形会在任何一种GC算法中发生。当Stop-the-world发生时，除了GC所需的线程以外，所有线程都处于等待状态直到GC任务完成。Use different gc algo to make 系统 高吞吐 、低停顿
 
 * 如何确定一个对象是否可以被回收？
 	* 引用计数算法：通过判断对象的引用数量来决定对象是否可以被回收
@@ -89,7 +83,7 @@ grammar_cjkRuby: true
 	* 长期存活的对象将进z老年代。当对象在新生代中经历过一定次数（默认为15）的Minor GC后，就会被晋升到老年代中。
 	* 动态对象年龄判定。 如果在Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无须等到MaxTenuringThreshold中要求的年龄。(In order to fit the different memory)
 * Java中的内存泄露问题
-	## 在不涉及复杂数据结构的一般情况下，Java 的内存泄露表现为一个内存对象的生命周期超出了程序需要它的时间长度。
+	* 在不涉及复杂数据结构的一般情况下，Java 的内存泄露表现为一个内存对象的生命周期超出了程序需要它的时间长度。
 	*  诸如 HashMap、Vector 等集合类的静态使用最容易出现内存泄露，因为这些静态变量的生命周期和应用程序一致，所有的对象Object也不能被释放，因为他们也将一直被Vector等应用着。
 	* 各种资源连接包括数据库连接、网络连接、IO连接等没有显式调用close关闭，不被GC回收导致内存泄露。
 	* 监听器的使用，在释放对象的同时没有相应删除监听器的时候也可能导致内存泄露。
@@ -112,8 +106,8 @@ grammar_cjkRuby: true
 	what changed in java 1.8
 	* PermGen is replaced with Metaspace in Oracle/Sun JDK8, which is similar. Only different is that Metaspace can expand at runtime.The JDK 8 HotSpot JVM is now using native memory for the representation of class metadata,similar to the Oracle JRockit and IBM JVM's.
 
-* As summary
-	* 那些内存需要回收？(对象是否可以被回收的两种经典算法: 引用计数法 和 可达性分析算法)
-	* 什么时候回收？ （堆的新生代、老年代、永久代的垃圾回收时机，MinorGC 和 FullGC）
-	* 如何回收？(三种经典垃圾回收算法(标记清除算法、复制算法、标记整理算法)及分代收集算法 和 七种垃圾收集器)
-	* why is this so complex -> JVM由于要执行GC而停止了应用程序的执行，并且这种情形会在任何一种GC算法中发生。当Stop-the-world发生时，除了GC所需的线程以外，所有线程都处于等待状态直到GC任务完成。Use different gc algo to make 系统 高吞吐 、低停顿
+## As summary
+* 那些内存需要回收？(对象是否可以被回收的两种经典算法: 引用计数法 和 可达性分析算法)
+* 什么时候回收？ （堆的新生代、老年代、永久代的垃圾回收时机，MinorGC 和 FullGC）
+* 如何回收？(三种经典垃圾回收算法(标记清除算法、复制算法、标记整理算法)及分代收集算法 和 七种垃圾收集器)
+* why is this so complex -> JVM由于要执行GC而停止了应用程序的执行，并且这种情形会在任何一种GC算法中发生。当Stop-the-world发生时，除了GC所需的线程以外，所有线程都处于等待状态直到GC任务完成。Use different gc algo to make 系统 高吞吐 、低停顿
